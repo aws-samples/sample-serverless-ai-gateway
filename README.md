@@ -1,7 +1,6 @@
 # Sample Serverless AI Chat Gateway 
 
 Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bedrock. Features real-time streaming chat with multiple AI models, user authentication, token usage tracking, response caching, and content safety guardrails. Includes React frontend, Python Lambda backend, and CDK infrastructure. Designed for secure, scalable AI interactions with built-in rate limiting and comprehensive monitoring.
-This process is ONLY for creating repositories in the aws-samples GitHub organization.
 
 ## Tasks
 
