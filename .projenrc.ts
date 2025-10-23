@@ -36,7 +36,7 @@ const pnpmOverrides = {
     "@babel/helpers": ">=7.26.10",
     "wrap-ansi": "^7.0.0",
     "fast-xml-parser": ">=4.4.1",
-    vite: ">=7.1.5",
+    vite: ">=7.1.11",
     vitest: ">=2.1.9",
     esbuild: ">=0.25.0",
     axios: ">=1.12.0",
@@ -188,9 +188,6 @@ const protoTools = new PythonProjectOverrides({
     },
 });
 
-protoTools.addTask("add-license", {
-    exec: "poetry run python add-license.py --path ../../../packages",
-});
 protoTools.disablePackaging();
 
 project.addDevDeps("@nxlv/python");

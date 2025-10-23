@@ -15,7 +15,7 @@ package-mode = false
   pandas = "*"
   pyarrow = "*"
   python = "^3.12"
-  requests = "^2.32"
+  requests = "^2.31"
   tabulate = "*"
 
 [tool.poetry.group.dev.dependencies]
