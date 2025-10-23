@@ -1,0 +1,263 @@
+{
+  "dependencies": [
+    {
+      "name": "@types/node",
+      "version": "^18",
+      "type": "build"
+    },
+    {
+      "name": "@typescript-eslint/eslint-plugin",
+      "version": "^7",
+      "type": "build"
+    },
+    {
+      "name": "@typescript-eslint/parser",
+      "version": "^7",
+      "type": "build"
+    },
+    {
+      "name": "eslint-config-prettier",
+      "type": "build"
+    },
+    {
+      "name": "eslint-import-resolver-typescript",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-import",
+      "type": "build"
+    },
+    {
+      "name": "eslint-plugin-prettier",
+      "type": "build"
+    },
+    {
+      "name": "eslint",
+      "version": "^8",
+      "type": "build"
+    },
+    {
+      "name": "prettier",
+      "type": "build"
+    },
+    {
+      "name": "typescript",
+      "type": "build"
+    },
+    {
+      "name": "@eslint/js",
+      "version": "^9.22.0",
+      "type": "devenv"
+    },
+    {
+      "name": "@tailwindcss/vite",
+      "version": "^4.1.13",
+      "type": "devenv"
+    },
+    {
+      "name": "@types/node",
+      "version": "^22.14.1",
+      "type": "devenv"
+    },
+    {
+      "name": "@types/react-dom",
+      "version": "^19.0.4",
+      "type": "devenv"
+    },
+    {
+      "name": "@types/react",
+      "version": "^19.0.10",
+      "type": "devenv"
+    },
+    {
+      "name": "@vitejs/plugin-react",
+      "version": "^4.3.4",
+      "type": "devenv"
+    },
+    {
+      "name": "eslint-plugin-react-hooks",
+      "version": "^5.2.0",
+      "type": "devenv"
+    },
+    {
+      "name": "eslint-plugin-react-refresh",
+      "version": "^0.4.19",
+      "type": "devenv"
+    },
+    {
+      "name": "eslint",
+      "version": "^9.22.0",
+      "type": "devenv"
+    },
+    {
+      "name": "globals",
+      "version": "^16.0.0",
+      "type": "devenv"
+    },
+    {
+      "name": "typescript-eslint",
+      "version": "^8.26.1",
+      "type": "devenv"
+    },
+    {
+      "name": "typescript",
+      "version": "~5.7.2",
+      "type": "devenv"
+    },
+    {
+      "name": "vite",
+      "version": "^6.3.1",
+      "type": "devenv"
+    },
+    {
+      "name": "@ai-sdk/react",
+      "version": "^1.2.11",
+      "type": "runtime"
+    },
+    {
+      "name": "@aws-amplify/ui-react",
+      "version": "^6",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-avatar",
+      "version": "^1.1.7",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-collapsible",
+      "version": "^1.1.8",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-dialog",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-dropdown-menu",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-label",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-progress",
+      "version": "^1.1.7",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-select",
+      "version": "^2.2.2",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-separator",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-slot",
+      "version": "^1.2.0",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-tabs",
+      "version": "^1.1.13",
+      "type": "runtime"
+    },
+    {
+      "name": "@radix-ui/react-tooltip",
+      "type": "runtime"
+    },
+    {
+      "name": "aws-amplify",
+      "version": "^6",
+      "type": "runtime"
+    },
+    {
+      "name": "class-variance-authority",
+      "version": "^0.7.1",
+      "type": "runtime"
+    },
+    {
+      "name": "clsx",
+      "version": "^2.1.1",
+      "type": "runtime"
+    },
+    {
+      "name": "framer-motion",
+      "version": "11",
+      "type": "runtime"
+    },
+    {
+      "name": "lucide-react",
+      "version": "^0.488.0",
+      "type": "runtime"
+    },
+    {
+      "name": "next-themes",
+      "version": "^0.4.6",
+      "type": "runtime"
+    },
+    {
+      "name": "react-dom",
+      "version": "^19.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "react-markdown",
+      "version": "10",
+      "type": "runtime"
+    },
+    {
+      "name": "react-router-dom",
+      "type": "runtime"
+    },
+    {
+      "name": "react",
+      "version": "^19.0.0",
+      "type": "runtime"
+    },
+    {
+      "name": "remark-gfm",
+      "version": "4",
+      "type": "runtime"
+    },
+    {
+      "name": "remeda",
+      "version": "2",
+      "type": "runtime"
+    },
+    {
+      "name": "shiki",
+      "version": "1",
+      "type": "runtime"
+    },
+    {
+      "name": "sonner",
+      "version": "^2.0.3",
+      "type": "runtime"
+    },
+    {
+      "name": "tailwind-merge",
+      "version": "^3.2.0",
+      "type": "runtime"
+    },
+    {
+      "name": "tailwindcss",
+      "version": "^4.1.13",
+      "type": "runtime"
+    },
+    {
+      "name": "tw-animate-css",
+      "version": "^1.2.5",
+      "type": "runtime"
+    },
+    {
+      "name": "uuid",
+      "version": "^11.1.0",
+      "type": "runtime"
+    }
+  ],
+  "//": "~~ Generated by projen. To modify, edit .projenrc.js and run \"npx projen\"."
+}
