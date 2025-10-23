@@ -1,11 +1,16 @@
-# Tasks
+# Sample Serverless AI Chat Gateway 
 
-## Prerequisites
+Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bedrock. Features real-time streaming chat with multiple AI models, user authentication, token usage tracking, response caching, and content safety guardrails. Includes React frontend, Python Lambda backend, and CDK infrastructure. Designed for secure, scalable AI interactions with built-in rate limiting and comprehensive monitoring.
+This process is ONLY for creating repositories in the aws-samples GitHub organization.
+
+## Tasks
+
+### Prerequisites
 
 1. Install pyenv to manage python versions: https://github.com/pyenv/pyenv
 1. Install nvm to manage nodejs versions: https://github.com/nvm-sh/nvm
 
-## Getting started
+### Getting started
 
 1. Run `pyenv install` (reads the python version from .python-version). Note that if you already have the version of python installed, you must run `pyenv local` to update your shell to use that python.
 1. Run `nvm install` (reads the nodejs version from .nvmrc)
@@ -20,13 +25,13 @@
 1. To build the packages: `npx nx run deploy:build` - this must precede the next step
 1. To deploy to your own account, run `ARCH=$(arch) npx nx run deploy:deploy --require-approval never --all`
 
-## List Projects
+### List Projects
 
 ```
 % npx nx show projects
 ```
 
-## Deploy the project
+### Deploy the project
 
 This build all the projects according to their dependency structure
 
@@ -40,13 +45,13 @@ To deploy, first deploy the base env stack. This includes all the resources that
 npx nx run deploy:deploy --require-approval=never --all
 ```
 
-## View application graph
+### View application graph
 
 ```
 npx nx graph
 ```
 
-## Update dependencies
+### Update dependencies
 
 Modify `.projenrc.ts` with the dependencies you wish to use and then run `npx pdk` to update project files.
 
