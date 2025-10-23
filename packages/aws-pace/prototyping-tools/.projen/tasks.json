@@ -1,13 +1,5 @@
 {
   "tasks": {
-    "add-license": {
-      "name": "add-license",
-      "steps": [
-        {
-          "exec": "poetry run python add-license.py --path ../../../packages"
-        }
-      ]
-    },
     "bandit": {
       "name": "bandit",
       "steps": [
