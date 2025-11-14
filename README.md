@@ -1,4 +1,4 @@
-# Sample Serverless AI Chat Gateway 
+# Sample Serverless AI Chat Gateway
 
 Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bedrock. Features real-time streaming chat with multiple AI models, user authentication, token usage tracking, response caching, and content safety guardrails. Includes React frontend, Python Lambda backend, and CDK infrastructure. Designed for secure, scalable AI interactions with built-in rate limiting and comprehensive monitoring.
 
@@ -6,65 +6,119 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 
 ### Prerequisites
 
-1. Install pyenv to manage python versions: https://github.com/pyenv/pyenv
-1. Install nvm to manage nodejs versions: https://github.com/nvm-sh/nvm
+- **Node.js 22.8.0** (use [nvm](https://github.com/nvm-sh/nvm) - run `nvm install` to use the version specified in `.nvmrc`)
+- **pnpm 10.20.0+** - Install with `npm install -g pnpm`
+- **Docker** - Required for Lambda function bundling during deployment
+- **AWS CLI** - Configured with credentials for your target AWS account
+- **Python 3.11+** and **Poetry** - For local Python development (optional, Docker handles Lambda bundling)
 
-### Getting started
+### Getting Started
 
-1. Run `pyenv install` (reads the python version from .python-version). Note that if you already have the version of python installed, you must run `pyenv local` to update your shell to use that python.
-1. Run `nvm install` (reads the nodejs version from .nvmrc)
-1. Install pnpm: `npm install -g pnpm`
-1. Run `pip install poetry setuptools`
-1. Run `pnpm install` to install dependencies (this will install npm dependencies and python dependencies via poetry install from the submodules)
-1. To update the region
-    - Open `.projenrc.ts` with your text editor
-    - Update the region constant near the top of the file, `const region = "us-east-1";`
-    - Run `pnpm projen` to update the configuration across the repository
-1. Define the `ARCH` variable in your shell: `export ARCH=$(arch)`. The value should be either `aarch64` or `x86_64` and should match your system architecture so that the lambda functions are deployed to an architecture matching your build environment.
-1. To build the packages: `npx nx run deploy:build` - this must precede the next step
-1. To deploy to your own account, run `ARCH=$(arch) npx nx run deploy:deploy --require-approval never --all`
+1. **Install Node.js dependencies:**
 
-### List Projects
+    ```bash
+    pnpm install
+    ```
 
-```
-% npx nx show projects
-```
+2. **Configure AWS region** (optional, defaults to us-east-1):
+    - Edit `packages/deploy/cdk.json`
+    - Update the `region` value in the `context` section
 
-### Deploy the project
+3. **Build and deploy:**
 
-This build all the projects according to their dependency structure
+    ```bash
+    pnpm run deploy
+    ```
 
-```
-npx nx run deploy:build
-```
+    This will:
+    - Build all TypeScript packages
+    - Build the React webapp
+    - Bundle Python Lambda functions with Poetry (via Docker)
+    - Deploy all CloudFormation stacks to AWS
 
-To deploy, first deploy the base env stack. This includes all the resources that are slow to deploy and not likely to change in development iterations: application load balancer, relational database, cognito.
+## Development Workflow
 
-```
-npx nx run deploy:deploy --require-approval=never --all
-```
+### Building
 
-### View application graph
+Build all TypeScript packages:
 
-```
-npx nx graph
+```bash
+pnpm run build
 ```
 
-### Update dependencies
+Build the webapp:
 
-Modify `.projenrc.ts` with the dependencies you wish to use and then run `npx pdk` to update project files.
+```bash
+pnpm run build:webapp
+```
 
-### pnpm audit
+### Synthesizing CloudFormation
 
-To run an audit and remediate CVEs, first...
+Generate CloudFormation templates (includes building packages and webapp):
 
-- Run `pnpm audit`.
-- Select one package to update
-- Update the `pnpmOverrides` in `.projenrc.ts`
-- Run `pnpm projen` to update dependencies and install the change.
-- Then repeat these steps.
+```bash
+pnpm run synth
+```
 
-Note, when updating aws-cdk-lib, update the cdkVersion variable also.
+### Deploying
+
+Deploy all stacks to AWS (includes building packages and webapp):
+
+```bash
+pnpm run deploy
+```
+
+### Other Commands
+
+View CloudFormation diff:
+
+```bash
+pnpm run diff
+```
+
+Destroy all stacks:
+
+```bash
+pnpm run destroy
+```
+
+Clean build artifacts:
+
+```bash
+pnpm run clean
+```
+
+Run tests:
+
+```bash
+pnpm run test
+```
+
+### Individual Package Commands
+
+Build a specific package:
+
+```bash
+pnpm --filter @aws-pace/cdk-utils build
+pnpm --filter @aws-pace/constructs build
+pnpm --filter deploy build
+```
+
+Deploy without building:
+
+```bash
+pnpm --filter deploy cdk:deploy
+```
+
+### Updating Dependencies
+
+To update dependencies:
+
+1. Update version numbers in the relevant `package.json` files
+2. Run `pnpm install` to update the lock file
+3. Test the changes with `pnpm run build && pnpm run synth`
+
+For security updates, run `pnpm audit` and update the `pnpm.overrides` section in the root `package.json` as needed.
 
 ## Security
 

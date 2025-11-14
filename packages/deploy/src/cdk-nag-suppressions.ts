@@ -19,7 +19,7 @@ import * as cdk from "aws-cdk-lib";
 /**
  * General cdk nag suppressions to allow infrastructure that is acceptable for a prototype
  */
-export const suppressCdkNagRules = (stack: cdk.Stack) => {
+export const suppressCdkNagRules = (_stack: cdk.Stack) => {
     // General nag suppressions were moved to packages/aws-pace/cdk-utils/src/cdk-nag-suppressions.ts
     // Use this file for project specific suppressions.
 };
