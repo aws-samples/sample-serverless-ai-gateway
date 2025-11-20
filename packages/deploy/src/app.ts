@@ -13,22 +13,13 @@
  * permissions and limitations under the License.
  */
 
-import { CdkGraph, FilterPreset, Filters } from "@aws/pdk/cdk-graph";
-import { CdkGraphDiagramPlugin } from "@aws/pdk/cdk-graph-plugin-diagram";
-import { CdkGraphThreatComposerPlugin } from "@aws/pdk/cdk-graph-plugin-threat-composer";
-import { PDKNag } from "@aws/pdk/pdk-nag";
 import { suppressCdkNagRules } from "@aws-pace/cdk-utils";
 import * as cdk from "aws-cdk-lib";
-
 import { AwsSolutionsChecks } from "cdk-nag";
 import { AppStack } from "./app-stack";
 import { CfWafStack } from "./cf-waf-stack";
 
-// Custom config providers.
-
-const app = PDKNag.app({
-    nagPacks: [new AwsSolutionsChecks()],
-});
+const app = new cdk.App();
 
 const stackName = app.node.tryGetContext("stack_name") || "prototype";
 const account =
@@ -70,20 +61,5 @@ const cfWafStackName = stackName + "-waf";
     suppressCdkNagRules(cfWafStack);
     suppressCdkNagRules(appStack);
 
-    const graph = new CdkGraph(app, {
-        plugins: [
-            new CdkGraphDiagramPlugin({
-                defaults: {
-                    filterPlan: {
-                        preset: FilterPreset.COMPACT,
-                        filters: [{ store: Filters.pruneCustomResources() }],
-                    },
-                },
-            }),
-            new CdkGraphThreatComposerPlugin(),
-        ],
-    });
-
     app.synth();
-    await graph.report();
 })().catch((err) => console.log("error in app.ts", err));

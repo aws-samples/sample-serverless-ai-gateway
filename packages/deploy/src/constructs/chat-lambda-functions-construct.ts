@@ -212,9 +212,24 @@ export class ChatLambdaFunctionsConstruct extends Construct {
             {
                 runtime: cdk.aws_lambda.Runtime.PYTHON_3_12,
                 handler: "eventhandlers.chatbot_handler.lambda_handler",
-                code: cdk.aws_lambda.Code.fromAsset(
-                    "../eventhandlers/dist/venv",
-                ),
+                code: cdk.aws_lambda.Code.fromAsset("../eventhandlers", {
+                    bundling: {
+                        image: cdk.aws_lambda.Runtime.PYTHON_3_12.bundlingImage,
+                        command: [
+                            "bash",
+                            "-c",
+                            [
+                                "export PIP_USER=false",
+                                "pip install --no-cache-dir poetry",
+                                "poetry config virtualenvs.in-project true",
+                                "poetry install --only main --no-interaction --no-ansi",
+                                "cp -r .venv/lib/python3.12/site-packages/* /asset-output/",
+                                "cp -r eventhandlers /asset-output/",
+                            ].join(" && "),
+                        ],
+                        user: "root",
+                    },
+                }),
                 timeout: cdk.Duration.minutes(5),
                 memorySize: 512,
                 architecture: cdk.aws_lambda.Architecture.ARM_64,
@@ -274,10 +289,24 @@ export class ChatLambdaFunctionsConstruct extends Construct {
             {
                 runtime: cdk.aws_lambda.Runtime.PYTHON_3_12,
                 handler: "eventhandlers.subscribe_handler.lambda_handler",
-                code: cdk.aws_lambda.Code.fromAsset(
-                    "../eventhandlers/dist/venv",
-                    {},
-                ),
+                code: cdk.aws_lambda.Code.fromAsset("../eventhandlers", {
+                    bundling: {
+                        image: cdk.aws_lambda.Runtime.PYTHON_3_12.bundlingImage,
+                        command: [
+                            "bash",
+                            "-c",
+                            [
+                                "export PIP_USER=false",
+                                "pip install --no-cache-dir poetry",
+                                "poetry config virtualenvs.in-project true",
+                                "poetry install --only main --no-interaction --no-ansi",
+                                "cp -r .venv/lib/python3.12/site-packages/* /asset-output/",
+                                "cp -r eventhandlers /asset-output/",
+                            ].join(" && "),
+                        ],
+                        user: "root",
+                    },
+                }),
                 timeout: cdk.Duration.seconds(30),
                 memorySize: 512,
                 architecture: cdk.aws_lambda.Architecture.ARM_64,
