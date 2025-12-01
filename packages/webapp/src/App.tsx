@@ -222,4 +222,7 @@ function AppComponent({ signOut, user }: ChatDemoProps) {
 }
 
 // Export the wrapped component with authentication
-export default withAuthenticator(AppComponent);
+// Hide sign-up option since self-registration is disabled in Cognito
+export default withAuthenticator(AppComponent, {
+    hideSignUp: true,
+});

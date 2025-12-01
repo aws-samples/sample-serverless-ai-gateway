@@ -44,6 +44,8 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 
 3. **Build and deploy:**
 
+    **Important:** Ensure Docker is running before deploying, as it's required to bundle the Python Lambda functions.
+
     ```bash
     pnpm run deploy
     ```
@@ -53,6 +55,36 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
     - Build the React webapp
     - Bundle Python Lambda functions with Poetry (via Docker)
     - Deploy all CloudFormation stacks to AWS
+
+    **Note:** After deployment completes, save the `CognitoUserPoolId` from the stack outputs - you'll need it to create users.
+
+4. **Create a user:**
+
+    Self-registration is disabled in this sample. To sign into the application, you need to create users in the Cognito console or using the AWS CLI. Use the `CognitoUserPoolId` from the deployment outputs:
+
+    ```bash
+    # Create a new user (replace USER_POOL_ID, USERNAME, and EMAIL)
+    aws cognito-idp admin-create-user \
+        --user-pool-id USER_POOL_ID \
+        --username USERNAME \
+        --user-attributes Name=email,Value=EMAIL Name=email_verified,Value=true \
+        --message-action SUPPRESS
+
+    # Set a permanent password for the user
+    aws cognito-idp admin-set-user-password \
+        --user-pool-id USER_POOL_ID \
+        --username USERNAME \
+        --password YOUR_PASSWORD \
+        --permanent
+    ```
+
+    Replace:
+    - `USER_POOL_ID` - The Cognito User Pool ID from stack outputs (e.g., `us-east-1_aBcDeFgHi`)
+    - `USERNAME` - The username for the new user (e.g., `john.doe`)
+    - `EMAIL` - The user's email address
+    - `YOUR_PASSWORD` - A secure password (must meet Cognito password requirements)
+
+    You can now sign in to the web application using these credentials.
 
 ## Development Workflow
 
