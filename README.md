@@ -7,7 +7,7 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 ### Prerequisites
 
 - **Node.js 22.8.0** (use [nvm](https://github.com/nvm-sh/nvm) - run `nvm install` to use the version specified in `.nvmrc`)
-- **pnpm 10.20.0+** - Install with `npm install -g pnpm`
+- **pnpm 10.20.0+** - Install with `npm install -g pnpm@latest`
 - **Docker** - Required for Lambda function bundling during deployment
 - **AWS CLI** - Configured with credentials for your target AWS account
 - **Python 3.11+** and **Poetry** - For local Python development (optional, Docker handles Lambda bundling)
@@ -17,7 +17,7 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 1. **Install Node.js dependencies:**
 
     ```bash
-    pnpm install
+    pnpm install --frozen-lockfile
     ```
 
 2. **Configure AWS region** (optional, defaults to us-east-1):
@@ -115,10 +115,12 @@ pnpm --filter deploy cdk:deploy
 To update dependencies:
 
 1. Update version numbers in the relevant `package.json` files
-2. Run `pnpm install` to update the lock file
+2. Run `pnpm install` (without `--frozen-lockfile`) to update the lock file
 3. Test the changes with `pnpm run build && pnpm run synth`
 
 For security updates, run `pnpm audit` and update the `pnpm.overrides` section in the root `package.json` as needed.
+
+**Note:** Use `pnpm install --frozen-lockfile` for regular development and deployment to ensure reproducible builds. Only use `pnpm install` without the flag when intentionally updating dependencies.
 
 ## Security
 
