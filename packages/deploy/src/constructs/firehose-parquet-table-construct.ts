@@ -220,7 +220,10 @@ export class FirehoseParquetTableConstruct extends Construct {
                 Enabled: true,
                 InputFormatConfiguration: {
                     Deserializer: {
-                        OpenXJsonSerDe: {},
+                        OpenXJsonSerDe: {
+                            ConvertDotsInJsonKeysToUnderscores: false,
+                            CaseInsensitive: true,
+                        },
                     },
                 },
                 OutputFormatConfiguration: {
