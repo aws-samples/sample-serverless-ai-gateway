@@ -22,9 +22,25 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 
     **Note:** You may see a warning about ignored build scripts (`aws-sdk`, `esbuild`, `unrs-resolver`). This is expected and can be safely ignored. These packages will build automatically when needed during the deployment process.
 
-2. **Configure AWS region** (optional, defaults to us-east-1):
-    - Edit `packages/deploy/cdk.json`
-    - Update the `region` value in the `context` section
+2. **Configure AWS credentials:**
+
+    Ensure you have AWS credentials configured. The CDK will automatically use your default AWS profile and region. You can configure credentials using:
+
+    ```bash
+    aws configure
+    ```
+
+    Or use environment variables:
+    - `AWS_REGION` - AWS region (defaults to us-east-1 if not set)
+    - `AWS_PROFILE` - AWS profile name
+    - `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` - AWS credentials
+    - `AWS_SESSION_TOKEN` - For temporary credentials
+
+    Alternatively, you can specify a profile when deploying:
+
+    ```bash
+    pnpm run deploy -- --profile your-profile-name
+    ```
 
 3. **Build and deploy:**
 
