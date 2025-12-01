@@ -12,7 +12,6 @@ overrides:
   constructs: '>=10.4.2'
   '@aws/pdk': '>=0.26.14'
   aws-cdk-lib: '>=2.189.1'
-  '@aws-cdk/aws-cognito-identitypool-alpha': '>=2.186.0-alpha.0'
   cdk-nag: '>=2.34.23'
   semver@>=7.0.0 <7.5.2: '>=7.5.2'
   ip@<1.1.9: '>=1.1.9'
@@ -36,9 +35,6 @@ importers:
 
   .:
     dependencies:
-      '@aws-cdk/aws-cognito-identitypool-alpha':
-        specifier: '>=2.186.0-alpha.0'
-        version: 2.186.0-alpha.0(aws-cdk-lib@2.206.0(constructs@10.4.2))(constructs@10.4.2)
       aws-cdk-lib:
         specifier: '>=2.189.1'
         version: 2.206.0(constructs@10.4.2)
@@ -531,14 +527,6 @@ packages:
 
   '@aws-cdk/asset-node-proxy-agent-v6@2.1.0':
     resolution: {integrity: sha512-7bY3J8GCVxLupn/kNmpPc5VJz8grx+4RKfnnJiO1LG+uxkZfANZG3RMHhE+qQxxwkyQ9/MfPtTpf748UhR425A==}
-
-  '@aws-cdk/aws-cognito-identitypool-alpha@2.186.0-alpha.0':
-    resolution: {integrity: sha512-Dzq+HEmEqWjLrbJZ4QsGawGMUGd1bkVpKF2E1c64ax2CcCV0xW8VXUmS71RRcFzhM7qwEN3buWjU03M5sqzUKg==}
-    engines: {node: '>= 14.15.0'}
-    deprecated: This package has been stabilized and moved to aws-cdk-lib
-    peerDependencies:
-      aws-cdk-lib: '>=2.189.1'
-      constructs: '>=10.4.2'
 
   '@aws-cdk/aws-lambda-python-alpha@2.114.1-alpha.0':
     resolution: {integrity: sha512-ozpcGNBrNjfrEOkTC8gpTJu9g1PCKV62NNGV3kE3hOkqjphss9ytwKjIfUIvS+yjqy8D8/BHM0btJKrNur0RoQ==}
@@ -5724,11 +5712,6 @@ snapshots:
   '@aws-cdk/asset-awscli-v1@2.2.242': {}
 
   '@aws-cdk/asset-node-proxy-agent-v6@2.1.0': {}
-
-  '@aws-cdk/aws-cognito-identitypool-alpha@2.186.0-alpha.0(aws-cdk-lib@2.206.0(constructs@10.4.2))(constructs@10.4.2)':
-    dependencies:
-      aws-cdk-lib: 2.206.0(constructs@10.4.2)
-      constructs: 10.4.2
 
   '@aws-cdk/aws-lambda-python-alpha@2.114.1-alpha.0(aws-cdk-lib@2.206.0(constructs@10.4.2))(constructs@10.4.2)':
     dependencies:

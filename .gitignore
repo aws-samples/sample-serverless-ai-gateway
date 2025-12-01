@@ -54,3 +54,4 @@ semgrep-scan-results.sarif
 !/.syncpackrc.json
 !/.projenrc.ts
 !/LICENSE
+.env
