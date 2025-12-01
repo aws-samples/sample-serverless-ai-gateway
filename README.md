@@ -20,6 +20,8 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
     pnpm install --frozen-lockfile
     ```
 
+    **Note:** You may see a warning about ignored build scripts (`aws-sdk`, `esbuild`, `unrs-resolver`). This is expected and can be safely ignored. These packages will build automatically when needed during the deployment process.
+
 2. **Configure AWS region** (optional, defaults to us-east-1):
     - Edit `packages/deploy/cdk.json`
     - Update the `region` value in the `context` section
