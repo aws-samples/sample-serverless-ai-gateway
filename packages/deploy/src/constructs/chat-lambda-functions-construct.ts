@@ -195,11 +195,11 @@ export class ChatLambdaFunctionsConstruct extends Construct {
             this,
             "ChatbotHandler",
             {
-                runtime: cdk.aws_lambda.Runtime.PYTHON_3_12,
+                runtime: cdk.aws_lambda.Runtime.PYTHON_3_13,
                 handler: "eventhandlers.chatbot_handler.lambda_handler",
                 code: cdk.aws_lambda.Code.fromAsset("../eventhandlers", {
                     bundling: {
-                        image: cdk.aws_lambda.Runtime.PYTHON_3_12.bundlingImage,
+                        image: cdk.aws_lambda.Runtime.PYTHON_3_13.bundlingImage,
                         command: [
                             "bash",
                             "-c",
@@ -272,11 +272,11 @@ export class ChatLambdaFunctionsConstruct extends Construct {
             this,
             "SubscribeHandler",
             {
-                runtime: cdk.aws_lambda.Runtime.PYTHON_3_12,
+                runtime: cdk.aws_lambda.Runtime.PYTHON_3_13,
                 handler: "eventhandlers.subscribe_handler.lambda_handler",
                 code: cdk.aws_lambda.Code.fromAsset("../eventhandlers", {
                     bundling: {
-                        image: cdk.aws_lambda.Runtime.PYTHON_3_12.bundlingImage,
+                        image: cdk.aws_lambda.Runtime.PYTHON_3_13.bundlingImage,
                         command: [
                             "bash",
                             "-c",

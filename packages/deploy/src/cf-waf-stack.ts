@@ -1,3 +1,4 @@
+import { Wafv2BasicConstruct, WafV2Scope } from "@aws-pace/constructs";
 import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 

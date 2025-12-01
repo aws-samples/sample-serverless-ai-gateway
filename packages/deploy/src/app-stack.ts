@@ -226,24 +226,5 @@ export class AppStack extends cdk.Stack {
                 frontendModelData,
             ),
         ]);
-
-        /*
-
-        const exampleFn = new lambdaPython.PythonFunction(this, "ExampleLambdaFn", {
-            runtime: cdk.aws_lambda.Runtime.PYTHON_3_8,
-            handler: "lambda_handler",
-            index: "example.py",
-            entry: "../api/example",
-            timeout: cdk.Duration.minutes(5),
-            environment: {},
-        });
-
-        new ApiGatewayV2LambdaConstruct(this, "ExampleLambdaApiGateway", {
-            lambdaFn: exampleFn,
-            routePath: "/api/example",
-            methods: [cdk.aws_apigatewayv2.HttpMethod.GET],
-            api: api.apiGatewayV2,
-        });
-        */
     }
 }

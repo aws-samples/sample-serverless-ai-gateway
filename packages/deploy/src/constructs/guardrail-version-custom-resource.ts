@@ -48,7 +48,7 @@ export class GuardrailVersionCustomResource extends Construct {
             this,
             "GuardrailVersionHandler",
             {
-                runtime: lambda.Runtime.PYTHON_3_12,
+                runtime: lambda.Runtime.PYTHON_3_13,
                 handler: "index.handler",
                 code: lambda.Code.fromInline(`
 import json

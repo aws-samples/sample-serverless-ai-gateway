@@ -124,7 +124,7 @@ export class S3EventPartitionLambdaConstruct extends Construct {
 
         // Create the Lambda function
         this.lambdaFunction = new lambda.Function(this, "PartitionHandler", {
-            runtime: lambda.Runtime.PYTHON_3_9,
+            runtime: lambda.Runtime.PYTHON_3_13,
             handler: "index.handler",
             code: lambda.Code.fromInline(this.generateLambdaCode()),
             role: lambdaRole,
