@@ -28,6 +28,20 @@ export interface ModelsConfig {
 export function generateModelsConfig(): ModelsConfig {
     const models: ModelConfig[] = [
         {
+            inferenceProfileId: "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+            inferenceProfileName: "US Anthropic Claude Haiku 4.5",
+            foundationModelId: "anthropic.claude-haiku-4-5-20251001-v1:0",
+            inferenceProfileRegions: ["us-east-1", "us-east-2", "us-west-2"],
+            foundationModelRegions: ["us-east-1", "us-east-2", "us-west-2"],
+        },
+        {
+            inferenceProfileId: "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+            inferenceProfileName: "US Anthropic Claude Sonnet 4.5",
+            foundationModelId: "anthropic.claude-sonnet-4-5-20250929-v1:0",
+            inferenceProfileRegions: ["us-east-1", "us-east-2", "us-west-2"],
+            foundationModelRegions: ["us-east-1", "us-east-2", "us-west-2"],
+        },
+        {
             inferenceProfileId: "us.anthropic.claude-opus-4-1-20250805-v1:0",
             inferenceProfileName: "US Anthropic Claude Opus 4.1",
             foundationModelId: "anthropic.claude-opus-4-1-20250805-v1:0",
@@ -78,7 +92,6 @@ export function generateModelsConfig(): ModelsConfig {
             inferenceProfileRegions: ["us-east-1", "us-east-2", "us-west-2"],
             foundationModelRegions: ["us-east-1", "us-east-2", "us-west-2"],
         },
-
         {
             inferenceProfileId: "us.meta.llama3-3-70b-instruct-v1:0",
             inferenceProfileName: "US Meta Llama 3.3 70B Instruct",
@@ -118,7 +131,7 @@ export function generateModelsConfig(): ModelsConfig {
 
     return {
         models,
-        defaultModelId: "us.anthropic.claude-sonnet-4-20250514-v1:0",
+        defaultModelId: "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
     };
 }
 

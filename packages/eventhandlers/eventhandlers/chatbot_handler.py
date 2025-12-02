@@ -521,7 +521,9 @@ def process_message(
         request_params = {
             "modelId": model_id,
             "messages": messages.get("messages"),
-            "inferenceConfig": {"maxTokens": 2048, "temperature": 0.5, "topP": 0.9},
+            "inferenceConfig": {
+                "maxTokens": 2048,
+            },
         }
 
         # Apply guardrails configuration if enabled
