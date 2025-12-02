@@ -1,4 +1,5 @@
 import * as crypto from "crypto";
+import * as cdk from "aws-cdk-lib";
 import * as bedrock from "aws-cdk-lib/aws-bedrock";
 import { Effect, IGrantable, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
@@ -117,6 +118,9 @@ export class BedrockGuardrails extends Construct {
 
         this.guardrailArn = guardrail.attrGuardrailArn;
         this.guardrailId = guardrail.attrGuardrailId;
+
+        // Apply removal policy to ensure guardrail is deleted when stack is destroyed
+        guardrail.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
         // Create a configuration hash to trigger version updates when config changes
         const configurationHash = this.createConfigurationHash(

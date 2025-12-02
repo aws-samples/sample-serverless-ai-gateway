@@ -105,6 +105,9 @@ export class FirehoseParquetTableConstruct extends Construct {
             },
         });
 
+        // Apply removal policy to ensure database is deleted when stack is destroyed
+        this.database.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
+
         // Create a Glue table with the specified schema
         this.table = new cdk.aws_glue.CfnTable(this, "Table", {
             catalogId: cdk.Stack.of(this).account,
@@ -141,6 +144,9 @@ export class FirehoseParquetTableConstruct extends Construct {
                 },
             },
         });
+
+        // Apply removal policy to ensure table is deleted when stack is destroyed
+        this.table.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
         // Create an IAM role for Firehose
         const firehoseRole = new cdk.aws_iam.Role(this, "FirehoseRole", {
