@@ -1,19 +1,5 @@
-/**
- * Copyright 2025 Amazon.com, Inc. and its affiliates. All Rights Reserved.
- *
- * Licensed under the Amazon Software License (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
 import * as crypto from "crypto";
+import * as cdk from "aws-cdk-lib";
 import * as bedrock from "aws-cdk-lib/aws-bedrock";
 import { Effect, IGrantable, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Construct } from "constructs";
@@ -132,6 +118,9 @@ export class BedrockGuardrails extends Construct {
 
         this.guardrailArn = guardrail.attrGuardrailArn;
         this.guardrailId = guardrail.attrGuardrailId;
+
+        // Apply removal policy to ensure guardrail is deleted when stack is destroyed
+        guardrail.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
         // Create a configuration hash to trigger version updates when config changes
         const configurationHash = this.createConfigurationHash(

@@ -1,18 +1,3 @@
-/**
- * Copyright 2025 Amazon.com, Inc. and its affiliates. All Rights Reserved.
- *
- * Licensed under the Amazon Software License (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
 import * as cdk from "aws-cdk-lib";
 import * as appsync from "aws-cdk-lib/aws-appsync";
 import { Construct } from "constructs";
@@ -210,11 +195,11 @@ export class ChatLambdaFunctionsConstruct extends Construct {
             this,
             "ChatbotHandler",
             {
-                runtime: cdk.aws_lambda.Runtime.PYTHON_3_12,
+                runtime: cdk.aws_lambda.Runtime.PYTHON_3_13,
                 handler: "eventhandlers.chatbot_handler.lambda_handler",
                 code: cdk.aws_lambda.Code.fromAsset("../eventhandlers", {
                     bundling: {
-                        image: cdk.aws_lambda.Runtime.PYTHON_3_12.bundlingImage,
+                        image: cdk.aws_lambda.Runtime.PYTHON_3_13.bundlingImage,
                         command: [
                             "bash",
                             "-c",
@@ -223,7 +208,7 @@ export class ChatLambdaFunctionsConstruct extends Construct {
                                 "pip install --no-cache-dir poetry",
                                 "poetry config virtualenvs.in-project true",
                                 "poetry install --only main --no-interaction --no-ansi",
-                                "cp -r .venv/lib/python3.12/site-packages/* /asset-output/",
+                                "cp -r .venv/lib/python3.13/site-packages/* /asset-output/",
                                 "cp -r eventhandlers /asset-output/",
                             ].join(" && "),
                         ],
@@ -287,11 +272,11 @@ export class ChatLambdaFunctionsConstruct extends Construct {
             this,
             "SubscribeHandler",
             {
-                runtime: cdk.aws_lambda.Runtime.PYTHON_3_12,
+                runtime: cdk.aws_lambda.Runtime.PYTHON_3_13,
                 handler: "eventhandlers.subscribe_handler.lambda_handler",
                 code: cdk.aws_lambda.Code.fromAsset("../eventhandlers", {
                     bundling: {
-                        image: cdk.aws_lambda.Runtime.PYTHON_3_12.bundlingImage,
+                        image: cdk.aws_lambda.Runtime.PYTHON_3_13.bundlingImage,
                         command: [
                             "bash",
                             "-c",
@@ -300,7 +285,7 @@ export class ChatLambdaFunctionsConstruct extends Construct {
                                 "pip install --no-cache-dir poetry",
                                 "poetry config virtualenvs.in-project true",
                                 "poetry install --only main --no-interaction --no-ansi",
-                                "cp -r .venv/lib/python3.12/site-packages/* /asset-output/",
+                                "cp -r .venv/lib/python3.13/site-packages/* /asset-output/",
                                 "cp -r eventhandlers /asset-output/",
                             ].join(" && "),
                         ],

@@ -1,18 +1,3 @@
-/**
- * Copyright 2025 Amazon.com, Inc. and its affiliates. All Rights Reserved.
- *
- * Licensed under the Amazon Software License (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
 import * as cdk from "aws-cdk-lib";
 import { StreamEncryption } from "aws-cdk-lib/aws-kinesisfirehose";
 import { Construct } from "constructs";
@@ -120,6 +105,9 @@ export class FirehoseParquetTableConstruct extends Construct {
             },
         });
 
+        // Apply removal policy to ensure database is deleted when stack is destroyed
+        this.database.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
+
         // Create a Glue table with the specified schema
         this.table = new cdk.aws_glue.CfnTable(this, "Table", {
             catalogId: cdk.Stack.of(this).account,
@@ -156,6 +144,9 @@ export class FirehoseParquetTableConstruct extends Construct {
                 },
             },
         });
+
+        // Apply removal policy to ensure table is deleted when stack is destroyed
+        this.table.applyRemovalPolicy(cdk.RemovalPolicy.DESTROY);
 
         // Create an IAM role for Firehose
         const firehoseRole = new cdk.aws_iam.Role(this, "FirehoseRole", {
@@ -220,7 +211,10 @@ export class FirehoseParquetTableConstruct extends Construct {
                 Enabled: true,
                 InputFormatConfiguration: {
                     Deserializer: {
-                        OpenXJsonSerDe: {},
+                        OpenXJsonSerDe: {
+                            ConvertDotsInJsonKeysToUnderscores: false,
+                            CaseInsensitive: true,
+                        },
                     },
                 },
                 OutputFormatConfiguration: {

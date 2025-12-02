@@ -1,18 +1,3 @@
-/**
- * Copyright 2025 Amazon.com, Inc. and its affiliates. All Rights Reserved.
- *
- * Licensed under the Amazon Software License (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
 // import * as lambdaPython from "@aws-cdk/aws-lambda-python-alpha";
 
 import {
@@ -241,24 +226,5 @@ export class AppStack extends cdk.Stack {
                 frontendModelData,
             ),
         ]);
-
-        /*
-
-        const exampleFn = new lambdaPython.PythonFunction(this, "ExampleLambdaFn", {
-            runtime: cdk.aws_lambda.Runtime.PYTHON_3_8,
-            handler: "lambda_handler",
-            index: "example.py",
-            entry: "../api/example",
-            timeout: cdk.Duration.minutes(5),
-            environment: {},
-        });
-
-        new ApiGatewayV2LambdaConstruct(this, "ExampleLambdaApiGateway", {
-            lambdaFn: exampleFn,
-            routePath: "/api/example",
-            methods: [cdk.aws_apigatewayv2.HttpMethod.GET],
-            api: api.apiGatewayV2,
-        });
-        */
     }
 }

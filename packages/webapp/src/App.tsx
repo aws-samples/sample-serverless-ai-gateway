@@ -1,18 +1,3 @@
-/**
- * Copyright 2025 Amazon.com, Inc. and its affiliates. All Rights Reserved.
- *
- * Licensed under the Amazon Software License (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
 import { type UseChatOptions } from "@ai-sdk/react";
 import {
     withAuthenticator,
@@ -210,7 +195,7 @@ function AppComponent({ signOut, user }: ChatDemoProps) {
                         }
                         error={error}
                         suggestions={[
-                            "What is the weather in San Francisco?",
+                            "Tell me a short story in 100 words",
                             "Explain step-by-step how to solve this math problem: If x² + 6x + 9 = 25, what is x?",
                             "Design a simple algorithm to find the longest palindrome in a string.",
                         ]}
@@ -222,4 +207,7 @@ function AppComponent({ signOut, user }: ChatDemoProps) {
 }
 
 // Export the wrapped component with authentication
-export default withAuthenticator(AppComponent);
+// Hide sign-up option since self-registration is disabled in Cognito
+export default withAuthenticator(AppComponent, {
+    hideSignUp: true,
+});

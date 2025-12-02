@@ -7,7 +7,7 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 ### Prerequisites
 
 - **Node.js 22.8.0** (use [nvm](https://github.com/nvm-sh/nvm) - run `nvm install` to use the version specified in `.nvmrc`)
-- **pnpm 10.20.0+** - Install with `npm install -g pnpm`
+- **pnpm 10.20.0+** - Install with `npm install -g pnpm@latest`
 - **Docker** - Required for Lambda function bundling during deployment
 - **AWS CLI** - Configured with credentials for your target AWS account
 - **Python 3.11+** and **Poetry** - For local Python development (optional, Docker handles Lambda bundling)
@@ -17,14 +17,34 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 1. **Install Node.js dependencies:**
 
     ```bash
-    pnpm install
+    pnpm install --frozen-lockfile
     ```
 
-2. **Configure AWS region** (optional, defaults to us-east-1):
-    - Edit `packages/deploy/cdk.json`
-    - Update the `region` value in the `context` section
+    **Note:** You may see a warning about ignored build scripts (`aws-sdk`, `esbuild`, `unrs-resolver`). This is expected and can be safely ignored. These packages will build automatically when needed during the deployment process.
+
+2. **Configure AWS credentials:**
+
+    Ensure you have AWS credentials configured. The CDK will automatically use your default AWS profile and region. You can configure credentials using:
+
+    ```bash
+    aws configure
+    ```
+
+    Or use environment variables:
+    - `AWS_REGION` - AWS region (defaults to us-east-1 if not set)
+    - `AWS_PROFILE` - AWS profile name
+    - `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` - AWS credentials
+    - `AWS_SESSION_TOKEN` - For temporary credentials
+
+    Alternatively, you can specify a profile when deploying:
+
+    ```bash
+    pnpm run deploy -- --profile your-profile-name
+    ```
 
 3. **Build and deploy:**
+
+    **Important:** Ensure Docker is running before deploying, as it's required to bundle the Python Lambda functions.
 
     ```bash
     pnpm run deploy
@@ -35,6 +55,36 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
     - Build the React webapp
     - Bundle Python Lambda functions with Poetry (via Docker)
     - Deploy all CloudFormation stacks to AWS
+
+    **Note:** After deployment completes, save the `CognitoUserPoolId` from the stack outputs - you'll need it to create users.
+
+4. **Create a user:**
+
+    Self-registration is disabled in this sample. To sign into the application, you need to create users in the Cognito console or using the AWS CLI. Use the `CognitoUserPoolId` from the deployment outputs:
+
+    ```bash
+    # Create a new user (replace USER_POOL_ID, USERNAME, and EMAIL)
+    aws cognito-idp admin-create-user \
+        --user-pool-id USER_POOL_ID \
+        --username USERNAME \
+        --user-attributes Name=email,Value=EMAIL Name=email_verified,Value=true \
+        --message-action SUPPRESS
+
+    # Set a permanent password for the user
+    aws cognito-idp admin-set-user-password \
+        --user-pool-id USER_POOL_ID \
+        --username USERNAME \
+        --password YOUR_PASSWORD \
+        --permanent
+    ```
+
+    Replace:
+    - `USER_POOL_ID` - The Cognito User Pool ID from stack outputs (e.g., `us-east-1_aBcDeFgHi`)
+    - `USERNAME` - The username for the new user (e.g., `john.doe`)
+    - `EMAIL` - The user's email address
+    - `YOUR_PASSWORD` - A secure password (must meet Cognito password requirements)
+
+    You can now sign in to the web application using these credentials.
 
 ## Development Workflow
 
@@ -115,10 +165,12 @@ pnpm --filter deploy cdk:deploy
 To update dependencies:
 
 1. Update version numbers in the relevant `package.json` files
-2. Run `pnpm install` to update the lock file
+2. Run `pnpm install` (without `--frozen-lockfile`) to update the lock file
 3. Test the changes with `pnpm run build && pnpm run synth`
 
 For security updates, run `pnpm audit` and update the `pnpm.overrides` section in the root `package.json` as needed.
+
+**Note:** Use `pnpm install --frozen-lockfile` for regular development and deployment to ensure reproducible builds. Only use `pnpm install` without the flag when intentionally updating dependencies.
 
 ## Security
 

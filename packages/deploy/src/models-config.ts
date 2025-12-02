@@ -1,19 +1,4 @@
 /**
- * Copyright 2025 Amazon.com, Inc. and its affiliates. All Rights Reserved.
- *
- * Licensed under the Amazon Software License (the "License").
- * You may not use this file except in compliance with the License.
- * A copy of the License is located at
- *
- *   http://aws.amazon.com/asl/
- *
- * or in the "license" file accompanying this file. This file is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
- * express or implied. See the License for the specific language governing
- * permissions and limitations under the License.
- */
-
-/**
  * Model configuration interface
  */
 export interface ModelConfig {
@@ -42,6 +27,20 @@ export interface ModelsConfig {
  */
 export function generateModelsConfig(): ModelsConfig {
     const models: ModelConfig[] = [
+        {
+            inferenceProfileId: "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+            inferenceProfileName: "US Anthropic Claude Haiku 4.5",
+            foundationModelId: "anthropic.claude-haiku-4-5-20251001-v1:0",
+            inferenceProfileRegions: ["us-east-1", "us-east-2", "us-west-2"],
+            foundationModelRegions: ["us-east-1", "us-east-2", "us-west-2"],
+        },
+        {
+            inferenceProfileId: "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
+            inferenceProfileName: "US Anthropic Claude Sonnet 4.5",
+            foundationModelId: "anthropic.claude-sonnet-4-5-20250929-v1:0",
+            inferenceProfileRegions: ["us-east-1", "us-east-2", "us-west-2"],
+            foundationModelRegions: ["us-east-1", "us-east-2", "us-west-2"],
+        },
         {
             inferenceProfileId: "us.anthropic.claude-opus-4-1-20250805-v1:0",
             inferenceProfileName: "US Anthropic Claude Opus 4.1",
@@ -93,7 +92,6 @@ export function generateModelsConfig(): ModelsConfig {
             inferenceProfileRegions: ["us-east-1", "us-east-2", "us-west-2"],
             foundationModelRegions: ["us-east-1", "us-east-2", "us-west-2"],
         },
-
         {
             inferenceProfileId: "us.meta.llama3-3-70b-instruct-v1:0",
             inferenceProfileName: "US Meta Llama 3.3 70B Instruct",
@@ -133,7 +131,7 @@ export function generateModelsConfig(): ModelsConfig {
 
     return {
         models,
-        defaultModelId: "us.anthropic.claude-sonnet-4-20250514-v1:0",
+        defaultModelId: "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
     };
 }
 
