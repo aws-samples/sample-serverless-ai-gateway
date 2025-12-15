@@ -128,6 +128,47 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 
     You can now sign in to the web application using these credentials.
 
+## Token Usage Limits Configuration
+
+The application includes built-in token usage limits to prevent excessive costs and manage API usage. These limits are enforced per user and reset daily/monthly.
+
+### Current Default Limits
+
+The default limits are configured in `packages/deploy/src/app-stack.ts`:
+
+```typescript
+dailyInputLimit: 10000,      // Input tokens per day per user
+dailyOutputLimit: 20000,     // Output tokens per day per user
+monthlyInputLimit: 100000,   // Input tokens per month per user
+monthlyOutputLimit: 200000,  // Output tokens per month per user
+```
+
+### Customizing Token Limits & Default LLM Model
+
+To modify the token limits or default LLM model for your deployment:
+
+1. **Edit the limits in `packages/deploy/src/app-stack.ts`:**
+
+    Find the `ChatLambdaFunctionsConstruct` instantiation (around line 109) and modify the values:
+
+    ```typescript
+    const chatLambdas = new ChatLambdaFunctionsConstruct(this, "ChatLambdas", {
+        tokenUsageTable: tokenUsage.table,
+        responseCacheTable: responseCache.table,
+        responseChannel: "Outbound-Messages",
+        dailyInputLimit: 5000, // Reduce daily input limit
+        dailyOutputLimit: 10000, // Reduce daily output limit
+        monthlyInputLimit: 50000, // Reduce monthly input limit
+        monthlyOutputLimit: 100000, // Reduce monthly output limit
+        defaultModelId: "us.anthropic.claude-3-5-haiku-20241022-v1:0", // Optional: change default model
+    });
+    ```
+
+2. **Redeploy the application:**
+    ```bash
+    pnpm run deploy
+    ```
+
 ## Development Workflow
 
 ### Local Development
