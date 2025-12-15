@@ -4,6 +4,7 @@
         "build": "pnpm --filter @aws-pace/cdk-utils build && pnpm --filter @aws-pace/constructs build && pnpm --filter deploy build",
         "build:webapp": "pnpm --filter webapp build",
         "clean": "pnpm -r clean",
+        "dev": "pnpm --filter webapp dev",
         "deploy": "pnpm run build && pnpm run build:webapp && pnpm --filter deploy cdk:deploy",
         "destroy": "pnpm --filter deploy cdk:destroy",
         "synth": "pnpm run build && pnpm run build:webapp && pnpm --filter deploy cdk:synth",

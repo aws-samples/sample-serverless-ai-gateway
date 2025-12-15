@@ -67,9 +67,21 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 
     **Note:** If Docker is not running, the deployment will fail early with a clear error message.
 
-    **Note:** After deployment completes, save the `CognitoUserPoolId` from the stack outputs - you'll need it to create users.
+    **Note:** After deployment completes, save the `CognitoUserPoolId` and `CloudFrontDistributionDomainName` from the stack outputs - you'll need them for user creation and local development.
 
-5. **Create a user:**
+5. **Configure environment variables (for local development):**
+
+    Update the environment file with your deployment outputs:
+
+    **Webapp `.env` file** (`packages/webapp/.env`):
+
+    ```bash
+    export VITE_CLOUDFRONT_URL=https://YOUR_CLOUDFRONT_DOMAIN.cloudfront.net/
+    ```
+
+    Replace `YOUR_CLOUDFRONT_DOMAIN` with the `CloudFrontDistributionDomainName` from your deployment outputs.
+
+6. **Create a user:**
 
     Self-registration is disabled in this sample. To sign into the application, you need to create users in the Cognito console or using the AWS CLI. Use the `CognitoUserPoolId` from the deployment outputs:
 
@@ -98,6 +110,16 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
     You can now sign in to the web application using these credentials.
 
 ## Development Workflow
+
+### Local Development
+
+Start the webapp development server:
+
+```bash
+pnpm run dev
+```
+
+This starts the Vite development server for the React webapp. Make sure you've configured the `.env` files as described above.
 
 ### Building
 
@@ -130,6 +152,12 @@ pnpm run deploy
 ```
 
 ### Other Commands
+
+Start development server:
+
+```bash
+pnpm run dev
+```
 
 View CloudFormation diff:
 
