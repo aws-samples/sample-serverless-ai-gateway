@@ -17,7 +17,9 @@ const region =
     process.env.CDK_DEPLOY_REGION ||
     process.env.CDK_DEFAULT_REGION;
 
-// Deploy Waf for CloudFront in us-east-1
+// WAF Configuration
+// To disable WAF: Comment out the WAF deployment section below (lines ~40-50)
+// and the WAF-related parameters in the AppStack constructor (lines ~60-65)
 const cfWafStackName = stackName + "-waf";
 
 (async () => {
@@ -35,6 +37,8 @@ const cfWafStackName = stackName + "-waf";
         process.exit(1);
     }
 
+    // WAF Stack Deployment
+    // Comment out this section to disable WAF
     const cfWafStack = new CfWafStack(app, cfWafStackName, {
         env: {
             account: account,
@@ -50,14 +54,17 @@ const cfWafStackName = stackName + "-waf";
             region: region,
         },
         stackName: stackName,
+        // Comment out these WAF parameters when disabling WAF
         ssmWafArnParameterName: cfWafStack.ssmWafArnParameterName,
         ssmWafArnParameterRegion: cfWafStack.region,
     });
 
+    // Comment out this dependency when disabling WAF
     appStack.addDependency(cfWafStack);
 
     // Add Aws Solutions Checks and suppress rules
     cdk.Aspects.of(app).add(new AwsSolutionsChecks({ logIgnores: true }));
+    // Comment out this line when disabling WAF
     suppressCdkNagRules(cfWafStack);
     suppressCdkNagRules(appStack);
 

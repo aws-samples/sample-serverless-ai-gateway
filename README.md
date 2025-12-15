@@ -63,9 +63,28 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
     - Build all TypeScript packages
     - Build the React webapp
     - Bundle Python Lambda functions with Poetry (via Docker)
-    - Deploy all CloudFormation stacks to AWS
+    - Deploy all CloudFormation stacks to AWS (including WAF by default)
 
     **Note:** If Docker is not running, the deployment will fail early with a clear error message.
+
+    **WAF Configuration:**
+    By default, the deployment includes a Web Application Firewall (WAF) for enhanced security.
+
+    **To disable WAF** (for development/testing environments):
+    1. Open `packages/deploy/src/app.ts`
+    2. Comment out the WAF-related sections (clearly marked with comments):
+        - WAF Stack creation (around line 40)
+        - WAF parameters in AppStack constructor (around line 60)
+        - WAF dependency and CDK nag rules (around lines 70-75)
+    3. Deploy normally with `pnpm run deploy`
+
+    **Important:** Disabling WAF reduces security protection for your CloudFront distribution. Only disable it for development/testing environments or if you have alternative security measures in place.
+
+    **WAF Security Benefits:**
+    - Protection against common web exploits (OWASP Top 10)
+    - Rate limiting and DDoS protection
+    - Geo-blocking capabilities
+    - Custom rule sets for your application
 
     **Note:** After deployment completes, save the `CognitoUserPoolId` and `CloudFrontDistributionDomainName` from the stack outputs - you'll need them for user creation and local development.
 
