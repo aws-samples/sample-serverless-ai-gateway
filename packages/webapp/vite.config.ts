@@ -17,6 +17,11 @@ export default ({ mode }: { mode: string }) => {
         },
         server: {
             proxy: {
+                "/models.json": {
+                    target: process.env.VITE_CLOUDFRONT_URL,
+                    changeOrigin: true,
+                    secure: false,
+                },
                 "/config.json": {
                     target: process.env.VITE_CLOUDFRONT_URL,
                     changeOrigin: true,

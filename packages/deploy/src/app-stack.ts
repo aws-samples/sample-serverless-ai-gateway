@@ -24,8 +24,8 @@ import {
 } from "./models-config";
 
 export interface AppStackProps extends cdk.StackProps {
-    readonly ssmWafArnParameterName: string;
-    readonly ssmWafArnParameterRegion: string;
+    readonly ssmWafArnParameterName?: string;
+    readonly ssmWafArnParameterRegion?: string;
 }
 
 /**
@@ -44,14 +44,13 @@ export class AppStack extends cdk.Stack {
 
         const cognito = new CognitoWebNativeConstruct(this, "Cognito", props);
 
-        const cfWafWebAcl = new SsmParameterReaderConstruct(
-            this,
-            "SsmWafParameter",
-            {
-                ssmParameterName: props.ssmWafArnParameterName,
-                ssmParameterRegion: props.ssmWafArnParameterRegion,
-            },
-        ).getValue();
+        const cfWafWebAcl =
+            props.ssmWafArnParameterName && props.ssmWafArnParameterRegion
+                ? new SsmParameterReaderConstruct(this, "SsmWafParameter", {
+                      ssmParameterName: props.ssmWafArnParameterName,
+                      ssmParameterRegion: props.ssmWafArnParameterRegion,
+                  }).getValue()
+                : undefined;
 
         const regionalWaf = new Wafv2BasicConstruct(this, "Wafv2CF", {
             wafScope: WafV2Scope.REGIONAL,

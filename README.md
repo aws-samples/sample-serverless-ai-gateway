@@ -22,7 +22,17 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 
     **Note:** You may see a warning about ignored build scripts (`aws-sdk`, `esbuild`, `unrs-resolver`). This is expected and can be safely ignored. These packages will build automatically when needed during the deployment process.
 
-2. **Configure AWS credentials:**
+2. **Verify Docker is running:**
+
+    Ensure Docker is running on your system, as it's required for Lambda function bundling:
+
+    ```bash
+    docker info
+    ```
+
+    If Docker is not running, you'll see an error. Start Docker Desktop or the Docker daemon before proceeding.
+
+3. **Configure AWS credentials:**
 
     Ensure you have AWS credentials configured. The CDK will automatically use your default AWS profile and region. You can configure credentials using:
 
@@ -42,23 +52,55 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
     pnpm run deploy -- --profile your-profile-name
     ```
 
-3. **Build and deploy:**
-
-    **Important:** Ensure Docker is running before deploying, as it's required to bundle the Python Lambda functions.
+4. **Build and deploy:**
 
     ```bash
     pnpm run deploy
     ```
 
     This will:
+    - Automatically check that Docker is running (required for Lambda bundling)
     - Build all TypeScript packages
     - Build the React webapp
     - Bundle Python Lambda functions with Poetry (via Docker)
-    - Deploy all CloudFormation stacks to AWS
+    - Deploy all CloudFormation stacks to AWS (including WAF by default)
 
-    **Note:** After deployment completes, save the `CognitoUserPoolId` from the stack outputs - you'll need it to create users.
+    **Note:** If Docker is not running, the deployment will fail early with a clear error message.
 
-4. **Create a user:**
+    **WAF Configuration:**
+    By default, the deployment includes a Web Application Firewall (WAF) for enhanced security.
+
+    **To disable WAF** (for development/testing environments):
+    1. Open `packages/deploy/src/app.ts`
+    2. Comment out the WAF-related sections (clearly marked with comments):
+        - WAF Stack creation (around line 40)
+        - WAF parameters in AppStack constructor (around line 60)
+        - WAF dependency and CDK nag rules (around lines 70-75)
+    3. Deploy normally with `pnpm run deploy`
+
+    **Important:** Disabling WAF reduces security protection for your CloudFront distribution. Only disable it for development/testing environments or if you have alternative security measures in place.
+
+    **WAF Security Benefits:**
+    - Protection against common web exploits (OWASP Top 10)
+    - Rate limiting and DDoS protection
+    - Geo-blocking capabilities
+    - Custom rule sets for your application
+
+    **Note:** After deployment completes, save the `CognitoUserPoolId` and `CloudFrontDistributionDomainName` from the stack outputs - you'll need them for user creation and local development.
+
+5. **Configure environment variables (for local development):**
+
+    Update the environment file with your deployment outputs:
+
+    **Webapp `.env` file** (`packages/webapp/.env`):
+
+    ```bash
+    export VITE_CLOUDFRONT_URL=https://YOUR_CLOUDFRONT_DOMAIN.cloudfront.net/
+    ```
+
+    Replace `YOUR_CLOUDFRONT_DOMAIN` with the `CloudFrontDistributionDomainName` from your deployment outputs.
+
+6. **Create a user:**
 
     Self-registration is disabled in this sample. To sign into the application, you need to create users in the Cognito console or using the AWS CLI. Use the `CognitoUserPoolId` from the deployment outputs:
 
@@ -87,6 +129,16 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
     You can now sign in to the web application using these credentials.
 
 ## Development Workflow
+
+### Local Development
+
+Start the webapp development server:
+
+```bash
+pnpm run dev
+```
+
+This starts the Vite development server for the React webapp. Make sure you've configured the `.env` files as described above.
 
 ### Building
 
@@ -119,6 +171,12 @@ pnpm run deploy
 ```
 
 ### Other Commands
+
+Start development server:
+
+```bash
+pnpm run dev
+```
 
 View CloudFormation diff:
 
