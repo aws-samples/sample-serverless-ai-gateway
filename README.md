@@ -22,7 +22,17 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
 
     **Note:** You may see a warning about ignored build scripts (`aws-sdk`, `esbuild`, `unrs-resolver`). This is expected and can be safely ignored. These packages will build automatically when needed during the deployment process.
 
-2. **Configure AWS credentials:**
+2. **Verify Docker is running:**
+
+    Ensure Docker is running on your system, as it's required for Lambda function bundling:
+
+    ```bash
+    docker info
+    ```
+
+    If Docker is not running, you'll see an error. Start Docker Desktop or the Docker daemon before proceeding.
+
+3. **Configure AWS credentials:**
 
     Ensure you have AWS credentials configured. The CDK will automatically use your default AWS profile and region. You can configure credentials using:
 
@@ -42,23 +52,24 @@ Sample Serverless AI chat gateway built on AWS AppSync Events API and Amazon Bed
     pnpm run deploy -- --profile your-profile-name
     ```
 
-3. **Build and deploy:**
-
-    **Important:** Ensure Docker is running before deploying, as it's required to bundle the Python Lambda functions.
+4. **Build and deploy:**
 
     ```bash
     pnpm run deploy
     ```
 
     This will:
+    - Automatically check that Docker is running (required for Lambda bundling)
     - Build all TypeScript packages
     - Build the React webapp
     - Bundle Python Lambda functions with Poetry (via Docker)
     - Deploy all CloudFormation stacks to AWS
 
+    **Note:** If Docker is not running, the deployment will fail early with a clear error message.
+
     **Note:** After deployment completes, save the `CognitoUserPoolId` from the stack outputs - you'll need it to create users.
 
-4. **Create a user:**
+5. **Create a user:**
 
     Self-registration is disabled in this sample. To sign into the application, you need to create users in the Cognito console or using the AWS CLI. Use the `CognitoUserPoolId` from the deployment outputs:
 

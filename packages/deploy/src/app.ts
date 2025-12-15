@@ -1,6 +1,7 @@
 import { suppressCdkNagRules } from "@aws-pace/cdk-utils";
 import * as cdk from "aws-cdk-lib";
 import { AwsSolutionsChecks } from "cdk-nag";
+import { execSync } from "child_process";
 import { AppStack } from "./app-stack";
 import { CfWafStack } from "./cf-waf-stack";
 
@@ -20,6 +21,20 @@ const region =
 const cfWafStackName = stackName + "-waf";
 
 (async () => {
+    // Check if Docker is running before deployment
+    try {
+        execSync("docker info", { stdio: "pipe" });
+        console.log("✅ Docker is running");
+    } catch (error) {
+        console.error(
+            "❌ Docker is not running. Please start Docker and try again.",
+        );
+        console.error(
+            "Docker is required for Lambda function bundling during deployment.",
+        );
+        process.exit(1);
+    }
+
     const cfWafStack = new CfWafStack(app, cfWafStackName, {
         env: {
             account: account,
