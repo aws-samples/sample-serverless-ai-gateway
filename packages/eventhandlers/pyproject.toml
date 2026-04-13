@@ -20,7 +20,7 @@ readme = "README.md"
 aws-lambda-builders = "*"
 licensecheck = "*"
 pip-audit = "*"
-pytest = "7.4.3"
+pytest = "9.0.3"
 
   [tool.poetry.group.dev.dependencies.bandit]
   extras = [ "sarif" ]
