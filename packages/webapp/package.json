@@ -27,7 +27,7 @@
         "prettier": "^3.6.2",
         "typescript": "~5.7.2",
         "typescript-eslint": "^8.26.1",
-        "vite": "^7.3.2"
+        "vite": "^7.3.5"
     },
     "dependencies": {
         "@ai-sdk/react": "^1.2.11",
